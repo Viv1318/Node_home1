@@ -1,0 +1,20 @@
+{
+  "name": "oleg_solution_of_quadratic_equations",
+  "version": "1.0.0",
+  "main": "home.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Voronin Oleg",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Viv1318/Node_home1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Viv1318/Node_home1/issues"
+  },
+  "homepage": "https://github.com/Viv1318/Node_home1#readme",
+  "description": "quadratic equations"
+}
