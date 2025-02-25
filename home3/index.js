@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 let count = 0;
-let countAbout = 0;
+let countAbout= 0;
 
 app.get('/', (req, res) => {
     res.send(`
@@ -21,8 +21,6 @@ app.get('/about', (req, res) => {
     `);
 });
 
-const port = 3001;
-
-app.listen(port, () => {
-    console.log(`Сервер запущен на порте ${port}`);
-});
+app.listen(3001, () => {
+    console.log('Server is running on port 3001');
+})
