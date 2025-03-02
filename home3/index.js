@@ -11,9 +11,11 @@ let counters = {
     about: 0
 };
 
+// Запись значений счетчиков в файл при старте сервера  
+
 app.get('/', (req, res) => {
     counters.main ++;
-    fs.writeFile('counters.json', JSON.stringify(counters, null, 2), (err) => {
+    fs.writeFile(path.join(__dirname, 'counters.json'), JSON.stringify(counters, null, 2), (err) => {
         if (err) {
             console.error(err);
         } else {
@@ -28,7 +30,7 @@ app.get('/', (req, res) => {
 
 app.get('/about', (req, res) => {
     counters.about ++;
-    fs.writeFile('counters.json', JSON.stringify(counters, null, 2), (err) => {
+    fs.writeFile(path.join(__dirname, 'counters.json'), JSON.stringify(counters, null, 2), (err) => {
         if (err) {
             console.error(err);
         } else {
@@ -45,7 +47,7 @@ app.get('/about', (req, res) => {
 
 
 
-fs.readFile('counters.json', 'utf8', (err, data) => {
+fs.readFile(path.join(__dirname, 'counters.json'), 'utf8', (err, data) => {
     if (err) {
         console.error(err);
     } else {
