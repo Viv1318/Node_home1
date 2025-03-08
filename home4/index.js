@@ -1,8 +1,14 @@
+/*В обработчиках получения данных по пользователю нужно читать файл
+В обработчиках создания, обновления и удаления нужно файл читать, чтобы убедиться, что пользователь существует, а затем сохранить в файл, когда внесены изменения*/
+
 const express = require('express');
 
 const joi = require('joi');
 
 const app = express();
+const fs = require("fs");
+const path = require("path");
+const { stringify } = require('querystring');
 
 const userSchema = joi.object({
     firstName: joi.string().min(3).max(50).required(),
@@ -13,13 +19,26 @@ const userSchema = joi.object({
 
 let uniqueId = 0;
 
-const users = [];
+let users = [];
 
 app.use(express.json());
 
 app.get('/users', (req, res) => {
+
+    fs.readFile(path.join(__dirname, 'users.json'), 'utf8', (err, body)  => {
+        if (err) {
+            console.error(err);
+        } else {
+            
+            users = JSON.parse(body);
+            console.log('Загружены значения счетчиков из файла');
+        }
+    });
+      
+        
     res.send({users});
 });
+
 
 app.get('/users/:id', (req, res) => {
     const userId = +req.params.id;
@@ -38,14 +57,27 @@ app.post('/users', (req, res) => {
     uniqueId += 1;
 
     const result = userSchema.validate(req.body);
+
+    
     if (result.error) {
         return res.status(400).send({ message: result.error.details[0].message });
     }
 
+            
     users.push({
         id: uniqueId,
         ...req.body
     });
+    
+    fs.writeFile(path.join(__dirname, "users.json"), JSON.stringify(users, null, 2), (err, body) => {
+        if (err) {
+            console.error(err);
+        } else {
+            console.log('файл  сохранен');
+        }
+    });
+
+    
     res.send({id: uniqueId});
 });
 
